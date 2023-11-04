@@ -1,0 +1,11 @@
+{
+	"values": [
+		"#minecraft:mineable/axe",
+		"#minecraft:mineable/hoe",
+		"#minecraft:mineable/pickaxe",
+		"#minecraft:mineable/shovel",
+		"minecraft:air",
+		"minecraft:water",
+		"minecraft:lava"
+	]
+}

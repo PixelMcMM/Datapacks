@@ -1,0 +1,24 @@
+{
+	"values": [
+		"#minecraft:tall_flowers",
+		"#minecraft:flowers",
+		"minecraft:lava",
+		"minecraft:water",
+		"minecraft:sculk_vein",
+		"minecraft:torch",
+		"minecraft:glow_lichen",
+		"minecraft:vine",
+		"minecraft:fire",
+		"minecraft:air",
+		"minecraft:cave_air",
+		"minecraft:nether_portal",
+		"minecraft:end_portal",
+		"minecraft:obsidian",
+		"minecraft:bedrock",
+		"minecraft:tall_grass",
+		"minecraft:large_fern",
+		"minecraft:cobweb",
+		"minecraft:twisting_vines",
+		"minecraft:weeping_vines"
+	]
+}
