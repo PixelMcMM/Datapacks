@@ -8,7 +8,7 @@ scoreboard players set HealDelay hhECTimer 4
 scoreboard objectives add hhWardenAnger dummy
 
 #bossbar schtuff
-bossbar add hhdeathbb "Death Counter"
+bossbar add hhdeathbb "Respawns"
 bossbar set hhdeathbb color green
 execute store result bossbar minecraft:hhdeathbb max run scoreboard players get Lives hhLives
 execute store result bossbar minecraft:hhdeathbb value run scoreboard players get Lives hhLives

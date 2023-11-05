@@ -4,7 +4,8 @@ execute unless score @s hhTimer matches 0.. run scoreboard players set @s hhTime
 
 
 #execute init function
-execute unless entity @s[tag=hhEndInit] in minecraft:the_end run function hh:boss_init
+execute unless score @s hhECTimer matches 4.. run scoreboard players add @s hhECTimer 1
+execute if score @s hhECTimer matches 4.. unless entity @s[tag=hhEndInit] as @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] at @s run function hh:boss_init
 #display warden's health on bossbar
 bossbar set hhwardenbb players @a[tag=hhHunted] 
 

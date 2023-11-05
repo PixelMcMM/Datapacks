@@ -21,7 +21,6 @@ execute if entity @s[nbt={Dimension:"minecraft:the_end"}] run tp @e[type=armor_s
 gamemode spectator @s
 
 
-#game over sequence
-execute if score Lives hhLives matches 0 run gamemode spectator @a[tag=hhHunted,gamemode=survival]
-execute if score Lives hhLives matches 0 run title @a[tag=hhHunted,gamemode=survival] title {"text":"GAME OVER","color":"red","bold":true}
+#game over sequence but living players can stil play
+execute if score Lives hhLives matches 0 run title @a[tag=hhHunted,gamemode=survival] title {"text":"Respawns Depleted","color":"red","bold":true}
 execute if score Lives hhLives matches 0 run kill @e[type=armor_stand,tag=hhDeathVisual]

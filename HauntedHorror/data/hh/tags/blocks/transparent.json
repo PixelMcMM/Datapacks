@@ -19,6 +19,7 @@
 		"minecraft:large_fern",
 		"minecraft:cobweb",
 		"minecraft:twisting_vines",
-		"minecraft:weeping_vines"
+		"minecraft:weeping_vines",
+		"#minecraft:doors"
 	]
 }

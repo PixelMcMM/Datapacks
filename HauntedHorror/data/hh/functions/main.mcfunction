@@ -36,7 +36,7 @@ execute if score hhTimer hhTimer matches 20.. unless entity @a[tag=hhHunted,nbt=
 
 
 #run function for warden in end
-execute if score hhTimer hhTimer matches 20.. if entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] as @e[type=warden,tag=hhWarden] at @s run function hh:end_dimension
+execute if score hhTimer hhTimer matches 20.. if entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] as @e[type=warden,tag=hhWarden] at @s in minecraft:the_end run function hh:end_dimension
 execute unless entity @a[tag=hhHunted,nbt={Dimension:"minecraft:overworld"}] as @e[type=marker,tag=hhECMarker] at @s run function hh:end_heal_warden
 
 execute store result bossbar minecraft:hhwardenbb value run data get entity @e[type=warden,tag=hhWarden,limit=1] Health
