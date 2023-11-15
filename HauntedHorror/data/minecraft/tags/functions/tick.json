@@ -1,6 +1,6 @@
 {
-  "replace": false,
   "values": [
-    "hh:main"
+    "hh:main",
+    "hh:events/main"
   ]
 }
