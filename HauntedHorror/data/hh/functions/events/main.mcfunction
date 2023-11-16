@@ -20,7 +20,7 @@ execute unless entity @e[tag=hhWAHit] run tag @a[tag=hhFiredWArrow2] remove hhFi
 ##waren helmet
 #activate glowing for anyone near a wearing player who isn't sneaking and reset sneak score and play sculk sensor sound
 execute as @a[scores={hhSneak=1..}] if data entity @s Inventory[{Slot:103b}].tag.hh_warden_helmet at @s run function hh:events/items/warden_helmet
-execute as @a[scores={hhSneak=1..},tag=!hhSneakInit] at @s run playsound minecraft:block.sculk_sensor.clicking ambient @a ~ ~ ~
+execute as @a[scores={hhSneak=1..},tag=!hhSneakInit] if data entity @s Inventory[{Slot:103b}].tag.hh_warden_helmet at @s run playsound minecraft:block.sculk_sensor.clicking ambient @a ~ ~ ~
 ##warden boots
 #activate function if wearing boots
 execute as @a if data entity @s Inventory[{Slot:100b}].tag.hh_warden_boots at @s run function hh:events/items/warden_boots/main

@@ -23,10 +23,9 @@ tag @s[tag=hhOnFire] remove hhOnFire
 #store fall distance
 execute store result score @s hhFallDistance run data get entity @s FallDistance
 #if fall distance is high, give slow falling when the ground is near and add tag
-execute if score @s[scores={hhXP=5..}] hhFallDistance matches 4..9 unless blocks ~ ~-1 ~ ~ ~-2 ~ ~ ~ ~ masked run tag @s add hhFalling
-execute if score @s[scores={hhXP=5..}] hhFallDistance matches 10.. unless blocks ~ ~-1 ~ ~ ~-3 ~ ~ ~ ~ masked run tag @s add hhFalling
+execute if score @s[scores={hhXP=5..}] hhFallDistance matches 4.. run tag @s add hhFalling
 #give the effects to players with the falling tag
-execute if entity @s[tag=hhFalling] run effect give @s minecraft:slow_falling 1 0 true
-execute if entity @s[tag=hhFalling] run xp add @s -5 points
+execute if entity @s[tag=hhFalling] run effect give @s minecraft:jump_boost 1 255 true
+execute if entity @s[tag=hhFalling,nbt={OnGround:1b}] run xp add @s -5 points
 #remove the falling tag
-tag @s[tag=hhFalling] remove hhFalling
+tag @s[tag=hhFalling,nbt={OnGround:1b}] remove hhFalling

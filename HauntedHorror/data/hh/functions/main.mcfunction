@@ -8,19 +8,14 @@
 execute as @e[type=marker,scores={hhLives=1..},tag=!hhCatalystMarker] at @s run function hh:init/warden_summon
 
 
-###player deaths and respawns
-##death management
-#if players die, run death counting function at the nearest marker running their death point. Do a random player to make sure multiple players don't spawn in the same place
-execute as @a[scores={hhDeath=1..},tag=hhHunted,sort=random,limit=1] at @e[type=marker,tag=hhDeathRecord,sort=nearest,limit=1] run function hh:players/death_counter
-#go through assignment function if marker and player havn't been given unique death values
-execute if entity @a[tag=hhOrderDeath] as @e[type=marker,tag=hhOrderDeath,limit=1] at @s run function hh:players/order_death
-##respawn management
-#run respawn function from the revived player if armor stand is killed by applying tags to the passengers of the armor stand
-execute as @e[type=armor_stand,tag=hhDeathVisual] on passengers run tag @s add hhNoRespawn
-execute if entity @e[type=marker,tag=hhDeathMarker,tag=!hhNoRespawn] as @a[tag=hhHunted,gamemode=spectator] at @s if score @s hhDeathOrder = @e[type=marker,tag=hhDeathMarker,tag=!hhNoRespawn,sort=random,limit=1] hhDeathOrder run tp @s @e[type=marker,tag=hhDeathMarker,tag=!hhNoRespawn,limit=1]
-execute if entity @e[type=marker,tag=hhDeathMarker,tag=!hhNoRespawn] as @a[tag=hhHunted,gamemode=spectator] at @s if score @s hhDeathOrder = @e[type=marker,tag=hhDeathMarker,tag=!hhNoRespawn,sort=random,limit=1] hhDeathOrder run function hh:players/respawn
-tag @e[type=marker,tag=hhNoRespawn] remove hhNoRespawn
-##misc respawning stuff
+###player death and respawns
+##run the main function from the perspective of each player off of the timer twice every second
+execute if score hhTimer hhTimer matches 10 as @a[tag=hhHunted] at @s run function hh:players/respawn/main
+execute if score hhTimer hhTimer matches 20 as @a[tag=hhHunted] at @s run function hh:players/respawn/main
+#give death record markers timer score to keep them from getting killed too early
+execute as @e[type=marker,tag=hhDeathRecord,scores={hhTimer=20..}] at @s run function hh:silent_kill
+execute if entity @e[type=marker,tag=hhDeathRecord] run scoreboard players add @e[type=marker,tag=hhDeathRecord] hhTimer 1
+##particles for death armor stands
 #run particles based on lives available
 execute if score Lives hhLives matches 1.. at @e[type=armor_stand,tag=hhDeathVisual] run particle minecraft:cloud ~ ~.5 ~ .5 .5 .5 .01 1
 execute if score Lives hhLives matches 0 at @e[type=armor_stand,tag=hhDeathVisual] run particle minecraft:dust 1 0 0 1 ~ ~.5 ~ .5 .5 .5 .01 10
@@ -30,12 +25,6 @@ execute if score Lives hhLives matches 0 as @e[type=armor_stand,tag=hhDeathVisua
 #if the death marker is in lava, tp it upwards and reset its fire tick to keep it from burning
 execute as @e[type=armor_stand,tag=hhDeathVisual] at @s if block ~ ~ ~ minecraft:lava run tp @s ~ ~.1 ~
 execute as @e[type=armor_stand,tag=hhDeathVisual] run data merge entity @s {Fire:0}
-#spawn markers at the players every tick so the game knows where they died
-execute as @e[type=marker,tag=hhDeathRecord] at @s run tp @s ~ ~-200 ~
-kill @e[type=marker,tag=hhDeathRecord]
-execute at @a[tag=hhHunted,gamemode=!spectator,scores={hhDeath=0}] run summon marker ~ ~ ~ {Tags:["hhDeathRecord","hhMarker"]}
-#reset death score as a failsafe
-execute as @a[scores={hhDeath=1..}] run scoreboard players set @s hhDeath 0
 ##regenerate respawns
 #increment regen time if lives aren't full
 execute if score Lives hhLives < LifeCount hhLives run scoreboard players add Regen hhLives 1
@@ -56,11 +45,9 @@ effect give @a[tag=hhInfected] nausea 2 0
 #remove tag
 tag @a[tag=hhInfected] remove hhInfected
 ##warden behavior functions
-#timer increment for warden anger function
-scoreboard players add hhTimer hhTimer 1
 #warden behavior functions for not end and end dimension
-execute if score hhTimer hhTimer matches 20.. unless entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] as @e[type=warden,tag=hhWarden] at @s run function hh:warden/warden_behavior
-execute if score hhTimer hhTimer matches 20.. if entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] as @e[type=warden,tag=hhWarden] at @s in minecraft:the_end run function hh:warden/end_dimension
+execute if score hhTimer hhTimer matches 20 unless entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] as @e[type=warden,tag=hhWarden] at @s run function hh:warden/warden_behavior
+execute if score hhTimer hhTimer matches 20 if entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] as @e[type=warden,tag=hhWarden] at @s in minecraft:the_end run function hh:warden/end_dimension
 execute unless entity @a[tag=hhHunted,nbt={Dimension:"minecraft:overworld"}] as @e[type=marker,tag=hhECMarker] at @s run function hh:warden/end_heal_warden
 ##ambient warden behavior
 #kill extra wardens if there are two for some reason
@@ -93,6 +80,11 @@ execute store result bossbar hhdeathbb value run scoreboard players get Lives hh
 execute store result bossbar minecraft:hhwardenbb value run data get entity @e[type=warden,tag=hhWarden,limit=1] Health
 
 
+
+##misc
+#hhTimer
+scoreboard players add hhTimer hhTimer 1
+execute if score hhTimer hhTimer matches 21.. run scoreboard players set hhTimer hhTimer 1
 
 
 #give creative buffs

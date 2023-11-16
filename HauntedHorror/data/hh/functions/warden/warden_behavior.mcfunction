@@ -5,7 +5,6 @@
 
 ##misc
 #reset timer scoreboard
-scoreboard players set hhTimer hhTimer 0
 execute unless score @s hhTimer matches 0.. run scoreboard players set @s hhTimer 0
 #keep warden from suffocating
 execute unless block ~ ~1 ~ #hh:transparent run fill ~ ~ ~ ~ ~2 ~ air
