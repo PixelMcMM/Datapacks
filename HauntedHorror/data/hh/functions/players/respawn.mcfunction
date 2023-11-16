@@ -7,9 +7,9 @@
 #change gamemode
 gamemode survival @s
 #respawn player with temp boosts
-effect give @s resistance 10 255
+effect give @s resistance 20 255
 effect give @s fire_resistance 25 0
-effect give @s night_vision 10 0
+effect give @s night_vision 20 0
 effect give @s speed 10 1
 #reset death order score
 scoreboard players set @s hhDeathOrder 0

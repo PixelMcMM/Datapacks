@@ -20,7 +20,7 @@ execute unless entity @e[tag=hhWAHit] run tag @a[tag=hhFiredWArrow2] remove hhFi
 ##waren helmet
 #activate glowing for anyone near a wearing player who isn't sneaking and reset sneak score and play sculk sensor sound
 execute as @a[scores={hhSneak=1..}] if data entity @s Inventory[{Slot:103b}].tag.hh_warden_helmet at @s run function hh:events/items/warden_helmet
-execute as @a[scores={hhSneakT=1}] at @s run playsound minecraft:block.sculk_sensor.clicking ambient @a ~ ~ ~
+execute as @a[scores={hhSneak=1..},tag=!hhSneakInit] at @s run playsound minecraft:block.sculk_sensor.clicking ambient @a ~ ~ ~
 ##warden boots
 #activate function if wearing boots
 execute as @a if data entity @s Inventory[{Slot:100b}].tag.hh_warden_boots at @s run function hh:events/items/warden_boots/main
@@ -30,7 +30,10 @@ execute as @a if data entity @s Inventory[{Slot:100b}].tag.hh_warden_boots at @s
 #activate goodie bag and reset COS score
 execute as @a[scores={hhCOS=1..},nbt={SelectedItem:{tag:{hh_warden_goodie_bag:1}}}] run function hh:events/goodie_bag
 scoreboard players set @a[scores={hhCOS=1..}] hhCOS 0
-#do sneak score objectives, add sneak time when sneaking, reset it when not
-scoreboard players add @a[scores={hhSneak=1..,hhSneakT=..19}] hhSneakT 1
+#add tag if the player sneaks to activate helmet
+tag @a[tag=hhSneakInit] remove hhSneakInit
+tag @a[scores={hhSneak=1..},tag=!hhSneakInit] add hhSneakInit
+#do sneak score objectives, add sneak time and holding bow when sneaking, reset it when not
+scoreboard players add @a[scores={hhSneak=1..,hhSneakT=..19},nbt={SelectedItem:{tag:{hh_warden_bow:1}}}] hhSneakT 1
 scoreboard players set @a[scores={hhSneak=0}] hhSneakT 0
 scoreboard players set @a[scores={hhSneak=1..}] hhSneak 0

@@ -28,7 +28,8 @@ kill @e[type=warden,tag=hhWarden]
 scoreboard players add @s hhTimer 1
 #funny lightning bolt
 execute if score @s hhTimer matches 185 run summon lightning_bolt
-#summon warden
+#summon warden and give him water breathing
 execute if score @s hhTimer matches 200 summon warden run tag @s add hhWarden
+execute if score @s hhTimer matches 200 run effect give @e[type=warden,tag=hhWarden] minecraft:water_breathing infinite 0 true
 #kill the marker after enough time
 execute if score @s hhTimer matches 200.. run kill @s
