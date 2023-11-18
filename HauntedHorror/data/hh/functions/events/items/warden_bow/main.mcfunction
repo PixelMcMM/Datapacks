@@ -23,6 +23,7 @@ execute if score total hhArrowMotion1 >= BowCharge hhArrowMotion1 run tp @e[type
 execute if score total hhArrowMotion1 >= BowCharge hhArrowMotion1 as @e[type=marker,tag=hhWAManager] at @s run function hh:events/items/warden_bow/arrow
 #give firing player immunity tag and tracking tag
 tag @p add hhFiredWArrow
+tag @p add hhFiredWArrow2
 #display warden particle and play warden firing sound
 execute at @e[type=marker,tag=hhWArrowMarker] run tag @e[tag=!hhFiredWArrow,distance=..2.5] add hhWAHit
 execute at @e[type=marker,tag=hhWArrowMarker] run particle minecraft:sonic_boom
@@ -30,3 +31,5 @@ execute if score total hhArrowMotion1 >= BowCharge hhArrowMotion1 run playsound 
 #kill the warden arrows, the markers
 execute if score total hhArrowMotion1 >= BowCharge hhArrowMotion1 run kill @s
 kill @e[type=marker,tag=hhWArrowMarker]
+#remove player tag
+tag @p remove hhFiredWArrow

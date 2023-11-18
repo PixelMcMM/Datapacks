@@ -4,21 +4,18 @@
 
 
 ##UUID magic
-#store player and marker UUID
-execute store result score @s hhUUID1 run data get entity @s UUID[0]
-execute store result score @s hhUUID2 run data get entity @s UUID[1]
-execute store result score @s hhUUID3 run data get entity @s UUID[2]
-execute store result score @s hhUUID4 run data get entity @s UUID[3]
+#store marker UUID
 execute as @e[type=marker,tag=hhDeathRecord] store result score @s hhUUID1 run data get entity @s data.PlayerUUID[0]
 execute as @e[type=marker,tag=hhDeathRecord] store result score @s hhUUID2 run data get entity @s data.PlayerUUID[1]
 execute as @e[type=marker,tag=hhDeathRecord] store result score @s hhUUID3 run data get entity @s data.PlayerUUID[2]
 execute as @e[type=marker,tag=hhDeathRecord] store result score @s hhUUID4 run data get entity @s data.PlayerUUID[3]
 #add a tag to the correct marking marker
-execute as @e[type=marker,tag=hhDeathRecord] if score @s hhUUID1 = @a[tag=hhHunted,sort=nearest,limit=1] hhUUID1 run scoreboard players set @s hhUUIDMatch 1
+execute as @e[type=marker,tag=hhDeathRecord] if score @s hhUUID1 = @a[tag=hhHunted,sort=nearest,limit=1] hhUUID1 run scoreboard players add @s hhUUIDMatch 1
 execute as @e[type=marker,tag=hhDeathRecord] if score @s hhUUID2 = @a[tag=hhHunted,sort=nearest,limit=1] hhUUID2 run scoreboard players add @s hhUUIDMatch 1
 execute as @e[type=marker,tag=hhDeathRecord] if score @s hhUUID3 = @a[tag=hhHunted,sort=nearest,limit=1] hhUUID3 run scoreboard players add @s hhUUIDMatch 1
 execute as @e[type=marker,tag=hhDeathRecord] if score @s hhUUID4 = @a[tag=hhHunted,sort=nearest,limit=1] hhUUID4 run scoreboard players add @s hhUUIDMatch 1
 tag @e[type=marker,tag=hhDeathRecord,scores={hhUUIDMatch=4},sort=nearest,limit=1] add hhDMarkerMatch
+scoreboard players set @e[type=marker,tag=hhDeathRecord] hhUUIDMatch 0
 
 
 ##players

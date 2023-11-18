@@ -27,7 +27,7 @@ execute as @e[type=armor_stand,tag=hhDeathVisual] at @s if block ~ ~ ~ minecraft
 execute as @e[type=armor_stand,tag=hhDeathVisual] run data merge entity @s {Fire:0}
 ##regenerate respawns
 #increment regen time if lives aren't full
-execute if score Lives hhLives < LifeCount hhLives run scoreboard players add Regen hhLives 1
+execute unless entity @a[tag=hhPause] if score Lives hhLives < LifeCount hhLives run scoreboard players add Regen hhLives 1
 #add a life if the timer reaches the regen time and the lives aren't capped and update bossbar
 execute if score Lives hhLives < LifeCount hhLives if score Regen hhLives >= RegenTime hhLives run scoreboard players add Lives hhLives 1
 #reset timer
@@ -46,8 +46,8 @@ effect give @a[tag=hhInfected] nausea 2 0
 tag @a[tag=hhInfected] remove hhInfected
 ##warden behavior functions
 #warden behavior functions for not end and end dimension
-execute if score hhTimer hhTimer matches 20 unless entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] as @e[type=warden,tag=hhWarden] at @s run function hh:warden/warden_behavior
-execute if score hhTimer hhTimer matches 20 if entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] as @e[type=warden,tag=hhWarden] at @s in minecraft:the_end run function hh:warden/end_dimension
+execute if score hhTimer hhTimer matches 20.. unless entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] as @e[type=warden,tag=hhWarden] at @s run function hh:warden/warden_behavior
+execute if score hhTimer hhTimer matches 20.. if entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"}] as @e[type=warden,tag=hhWarden] at @s in minecraft:the_end run function hh:warden/end_dimension
 execute unless entity @a[tag=hhHunted,nbt={Dimension:"minecraft:overworld"}] as @e[type=marker,tag=hhECMarker] at @s run function hh:warden/end_heal_warden
 ##ambient warden behavior
 #kill extra wardens if there are two for some reason
@@ -58,8 +58,10 @@ tag @e[type=warden,tag=hhRandomWarden] remove hhRandomWarden
 execute as @e[type=warden,tag=hhWarden] store result score @s hhLives run data get entity @s Brain.memories."minecraft:dig_cooldown".ttl
 execute as @e[type=warden,tag=hhWarden] if score @s hhLives matches ..5 run data modify entity @s Brain.memories."minecraft:dig_cooldown".ttl set value 1000
 ##border
-#set worldborder center to warden unless there is a teleport marker
-execute at @e[tag=hhBorderCenter] run worldborder center ~ ~
+#if the overworld run world border normally
+execute at @e[tag=hhBorderCenter] if dimension minecraft:overworld run worldborder center ~ ~
+#set worldborder center to warden unless there is a teleport marker and set the border to the right distance for each dimension
+execute at @e[tag=hhBorderCenter] if dimension minecraft:the_nether summon marker at @s run function hh:warden/world_border
 #make the warden glow if a player is close
 execute as @e[type=warden,tag=hhWarden] at @s if entity @a[tag=hhHunted,distance=..25] run effect give @s glowing 1 0 true
 ##player mods
@@ -83,8 +85,10 @@ execute store result bossbar minecraft:hhwardenbb value run data get entity @e[t
 
 ##misc
 #hhTimer
-scoreboard players add hhTimer hhTimer 1
+execute unless entity @a[tag=hhPause] run scoreboard players add hhTimer hhTimer 1
 execute if score hhTimer hhTimer matches 21.. run scoreboard players set hhTimer hhTimer 1
+#store player uuid if it is not stored
+execute as @a run function hh:players/store_uuid
 
 
 #give creative buffs

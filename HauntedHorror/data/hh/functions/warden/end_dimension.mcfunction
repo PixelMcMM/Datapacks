@@ -23,7 +23,7 @@ execute if entity @s[tag=hhWardenInfect] align xyz run fill ~ ~-2 ~-1 ~ ~-1 ~1 m
 execute if entity @s[tag=hhWardenInfect] align xyz run setblock ~ ~-1 ~ minecraft:sculk_catalyst
 tag @s[tag=hhWardenInfect] remove hhWardenInfect
 #add to timer to cause the warden to infect blocks
-execute if score @s hhTimer matches 0 store result score @s hhTimer run random value 20..30
+execute if score @s hhTimer matches ..0 store result score @s hhTimer run random value 20..30
 scoreboard players remove @s hhTimer 1
 #infection running stuff
 execute as @e[type=marker,tag=hhCatalystMarker] at @s run function hh:warden/infection

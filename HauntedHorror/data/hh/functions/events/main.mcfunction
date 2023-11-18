@@ -16,7 +16,7 @@ execute as @a[scores={hhSneak=0,hhSneakT=2..}] run stopsound @s voice
 scoreboard players set @a[scores={hhBowShot=1..}] hhBowShot 0
 #damage players who were hit by the bow otherwise remove tracking tag
 execute if entity @e[tag=hhWAHit] as @e[tag=hhWAHit] at @s run function hh:events/items/warden_bow/arrow_hit
-execute unless entity @e[tag=hhWAHit] run tag @a[tag=hhFiredWArrow2] remove hhFiredWArrow
+execute unless entity @e[tag=hhWAHit] run tag @a[tag=hhFiredWArrow2] remove hhFiredWArrow2
 ##waren helmet
 #activate glowing for anyone near a wearing player who isn't sneaking and reset sneak score and play sculk sensor sound
 execute as @a[scores={hhSneak=1..}] if data entity @s Inventory[{Slot:103b}].tag.hh_warden_helmet at @s run function hh:events/items/warden_helmet
@@ -37,3 +37,10 @@ tag @a[scores={hhSneak=1..},tag=!hhSneakInit] add hhSneakInit
 scoreboard players add @a[scores={hhSneak=1..,hhSneakT=..19},nbt={SelectedItem:{tag:{hh_warden_bow:1}}}] hhSneakT 1
 scoreboard players set @a[scores={hhSneak=0}] hhSneakT 0
 scoreboard players set @a[scores={hhSneak=1..}] hhSneak 0
+
+
+##general game events
+#if all players die
+execute unless entity @a[tag=hhHunted,gamemode=!spectator] as @a[tag=hhHunted] at @s run function hh:events/game_over
+#if you win
+execute if entity @a[tag=hhHunted,nbt={Dimension:"minecraft:the_end"},scores={hhKillWarden=1..}] as @a[tag=hhHunted] run function hh:events/game_won

@@ -10,10 +10,7 @@ execute store result score @s hhUUID2 run data get entity @s anger.suspects[0].u
 execute store result score @s hhUUID3 run data get entity @s anger.suspects[0].uuid[2]
 execute store result score @s hhUUID4 run data get entity @s anger.suspects[0].uuid[3]
 #store scoreboard values for player from uuid
-execute as @e[distance=..40,type=!#hh:warden_targetable,type=!player] store result score @s hhUUID1 run data get entity @s UUID[0]
-execute as @e[distance=..40,type=!#hh:warden_targetable,type=!player] store result score @s hhUUID2 run data get entity @s UUID[1]
-execute as @e[distance=..40,type=!#hh:warden_targetable,type=!player] store result score @s hhUUID3 run data get entity @s UUID[2]
-execute as @e[distance=..40,type=!#hh:warden_targetable,type=!player] store result score @s hhUUID4 run data get entity @s UUID[3]
+execute as @e[distance=..40,type=!#hh:warden_targetable,type=!player] run function hh:players/store_uuid
 #compare warden and player scores and add corresponding tags to succeeding players
 execute as @e[type=!#hh:warden_targetable] if score @s hhUUID1 = @e[type=warden,tag=hhWarden,sort=nearest,limit=1] hhUUID1 run scoreboard players add @s hhUUIDMatch 1
 execute as @e[type=!#hh:warden_targetable] if score @s hhUUID2 = @e[type=warden,tag=hhWarden,sort=nearest,limit=1] hhUUID2 run scoreboard players add @s hhUUIDMatch 1

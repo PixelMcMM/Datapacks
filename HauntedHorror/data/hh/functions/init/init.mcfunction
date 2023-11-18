@@ -3,6 +3,12 @@
 #####
 
 
+#gavin dumb
+team add hhGavinDumb
+team modify hhGavinDumb friendlyFire false
+
+
+
 ##general init items
 #gamerule stuff to work with respawn mechanics
 gamerule keepInventory true
@@ -11,6 +17,15 @@ gamerule doImmediateRespawn true
 scoreboard objectives add hhTimer dummy
 #text message to start the hunt
 tellraw @a {"text":"Shift click here to be able to start the event","color":"gold","insertion":"/execute summon marker run scoreboard players set @s hhLives <insert_life_count>"}
+#set world border damage
+worldborder damage amount .1
+#score to track x y and z for entities
+scoreboard objectives add hhEntityX dummy
+scoreboard objectives add hhEntityY dummy
+scoreboard objectives add hhEntityZ dummy
+#number storing score
+scoreboard objectives add hhNumberStore dummy
+scoreboard players set 8 hhNumberStore 8
 
 
 ##player lives stuff
@@ -37,7 +52,9 @@ scoreboard objectives add hhECTimer dummy
 scoreboard players set HealDelay hhECTimer 4
 #scoreboard to preserve warden's anger at players
 scoreboard objectives add hhWardenAnger dummy
-##uuid tracking
+#show if players are killing warden
+scoreboard objectives add hhKillWarden minecraft.killed:minecraft.warden
+#uuid tracking
 scoreboard objectives add hhUUID1 dummy
 scoreboard objectives add hhUUID2 dummy
 scoreboard objectives add hhUUID3 dummy

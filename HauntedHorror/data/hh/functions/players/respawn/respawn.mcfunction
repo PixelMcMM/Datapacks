@@ -19,6 +19,7 @@ tp @s @e[type=marker,tag=hhPlayerRevive,sort=nearest,limit=1]
 #change gamemode
 gamemode survival @s
 #respawn player with temp boosts
+effect give @s instant_health 1 10 true
 effect give @s resistance 20 255
 effect give @s fire_resistance 25 0
 effect give @s night_vision 20 0
@@ -27,7 +28,7 @@ effect give @s speed 10 1
 
 ##misc
 #kill armor stand item
-kill @e[type=item,distance=..3,nbt={Item:{id:"minecraft:armor_stand"}},sort=nearest,limit=1]
+kill @e[type=item,nbt={Item:{id:"minecraft:armor_stand"}},sort=nearest,limit=1]
 #kill marker entity
 kill @e[type=marker,tag=hhPlayerRevive,sort=nearest,limit=1]
 #remove 1 from lives and store value back in bossbar
