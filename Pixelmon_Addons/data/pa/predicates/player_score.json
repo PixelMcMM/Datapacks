@@ -1,0 +1,45 @@
+{
+  "condition": "minecraft:alternative",
+  "terms": [
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "paSpawnerDaytime": {
+          "min": -1000,
+          "max": 1000
+        }
+      }
+    },
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "paSpawnerWeather": {
+          "min": -1000,
+          "max": 1000
+        }
+      }
+    },
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "paSpawnerDist": {
+          "min": -1000,
+          "max": 1000
+        }
+      }
+    },
+    {
+      "condition": "minecraft:entity_scores",
+      "entity": "this",
+      "scores": {
+        "paSpawnerDelay": {
+          "min": -1000,
+          "max": 1000
+        }
+      }
+    }
+  ]
+}
