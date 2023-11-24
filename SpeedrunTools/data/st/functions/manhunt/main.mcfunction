@@ -8,6 +8,10 @@
 execute if dimension minecraft:overworld run scoreboard players set @s stDimension 0
 execute if dimension minecraft:the_nether run scoreboard players set @s stDimension 1
 execute if dimension minecraft:the_end run scoreboard players set @s stDimension 2
+#replace the compass if hunters dont have it
+execute unless data entity @s[tag=stHunter] Inventory[{id:"minecraft:compass"}].tag.stCompass run give @s minecraft:compass{stCompass:1,LodestoneDimension:"minecraft:overworld",LodestoneTracked:1b}
+#kill all manhunt compass items
+kill @e[type=item,nbt={Item:{tag:{stCompass:1}}}]
 
 
 ##function to do compass tracking
