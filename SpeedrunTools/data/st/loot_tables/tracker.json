@@ -1,0 +1,43 @@
+{
+  "pools": [
+    {
+      "rolls": 1,
+      "entries": [
+        {
+          "type": "minecraft:item",
+          "name": "minecraft:compass"
+        }
+      ],
+      "functions": [
+        {
+          "function": "minecraft:set_count",
+          "count": 1,
+          "add": false
+        },
+        {
+          "function": "minecraft:set_components",
+          "components": {
+            "minecraft:item_name": "Tracker",
+            "minecraft:food": {
+              "nutrition": 0,
+              "saturation": 0,
+              "can_always_eat": true,
+              "eat_seconds": 100
+            },
+            "minecraft:lodestone_tracker": {
+              "tracker": {
+                "dimension": "minecraft:overworld",
+                "pos": [
+                  1,
+                  1,
+                  1
+                ]
+              },
+              "tracked": false
+            }
+          }
+        }
+      ]
+    }
+  ]
+}

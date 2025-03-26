@@ -1,2 +1,2 @@
 ##run manhunt init function
-function st:manhunt/init
+data modify storage st:manhunt tracker set value {target:{pos:[0,0,0]},tracked:false}
